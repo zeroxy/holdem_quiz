@@ -109,6 +109,7 @@ public class HoldemUtil {
 	
 	public static void main(String[] args) throws IOException {
 		HoldemUtil.init();
+		four_card_comb();
 		//System.out.println("\n"+HoldemUtil.cards_to_rank[0].cards+" ### ");
 		/*
 		System.out.println("012345678901234567890123456789");
@@ -119,6 +120,29 @@ public class HoldemUtil {
 		System.out.println(long_to_String(cards)+" "+cards);
 		System.out.println(best_hand_ranking(cards));
 		*/
+	}
+	
+	public static void four_card_comb() {
+		long S_cnt=0L;
+		for(int a = 0; a< 52; a++) {
+			for(int b = a+1; b<52; b++) {
+				for(int c = b+1; c< 52; c++) {
+					for(int d= c+1; d< 52; d++) {
+						S_cnt+=1;
+						long S = (1L<<a)+(1L<<b)+(1L<<c)+(1L<<d);
+						System.out.printf("%6d %52s",S_cnt, Long.toBinaryString(S));
+						for(int t = 0 ; t< 52; t++) {
+							if(t!=a && t!=b && t!=c && t!=d) {
+								long T = S+(1L<<t);
+								long rank = cardset_to_rank(T);
+								System.out.printf(" %4d", rank);
+							}
+						}
+						System.out.println();
+					}
+				}
+			}
+		}
 	}
 	
 	public static int get_outs(long cards) {
